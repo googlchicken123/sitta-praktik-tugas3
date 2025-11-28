@@ -4,7 +4,7 @@ console.log("Auth script loaded");
 // Load users dari JSON
 async function loadUsers() {
     try {
-        const res = await fetch("/data/users.json", { cache: "no-store" });
+        const res = await fetch("./data/users.json", { cache: "no-store" });
         if (!res.ok) throw new Error("Gagal memuat users.json");
         return await res.json();
     } catch (err) {
