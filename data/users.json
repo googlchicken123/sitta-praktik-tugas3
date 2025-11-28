@@ -1,0 +1,14 @@
+[
+  {
+    "email": "admin@ut.ac.id",
+    "nama": "Admin UT",
+    "password": "admin123",
+    "role": "admin"
+  },
+  {
+    "email": "user@ut.ac.id",
+    "nama": "Pengguna UT",
+    "password": "user123",
+    "role": "user"
+  }
+]

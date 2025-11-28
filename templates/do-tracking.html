@@ -1,0 +1,124 @@
+<!-- templates/do-tracking.html -->
+<div class="container tracking-component">
+  <button class="back-btn" @click="$root.setTab('dashboard')" style="margin-bottom:12px;">
+    ← Kembali ke Dashboard
+  </button>
+
+  <h2>Tracking DO</h2>
+
+  <form @submit.prevent="addDO" class="tracking-form" style="background:#fff;padding:18px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.04);margin-bottom:18px;">
+    <div style="display:grid;grid-template-columns:1fr;gap:12px;">
+      <label>Nomor DO:
+        <input type="text" v-model="form.noDO" readonly />
+      </label>
+
+      <label>NIM:
+        <input type="text" v-model="form.nim" placeholder="Masukkan NIM" />
+      </label>
+
+      <label>Nama:
+        <input type="text" v-model="form.nama" placeholder="Nama penerima" />
+      </label>
+
+      <div style="display:grid;grid-template-columns: 1fr 1fr 1fr; gap: 12px; align-items:center;">
+        <label>Ekspedisi:
+          <select v-model="form.ekspedisi">
+            <option value="">Pilih Ekspedisi</option>
+            <option v-for="(e,i) in ekspedisiList" :key="i">{{ e }}</option>
+          </select>
+        </label>
+
+        <label>Paket Bahan Ajar:
+          <select v-model="form.paketKode">
+            <option value="">Pilih Paket</option>
+            <option v-for="p in paketList" :key="p.kode" :value="p.kode">{{ p.kode }} — {{ p.nama }}</option>
+          </select>
+        </label>
+
+        <label>Tanggal Kirim:
+          <input type="date" v-model="form.tanggalKirim" />
+        </label>
+      </div>
+
+      <button type="submit" class="add-btn" style="margin-top:8px;">Tambah DO baru</button>
+    </div>
+  </form>
+
+  <div style="margin-bottom:12px; display:flex; gap:12px; align-items:center;">
+    <input type="text" placeholder="Cari Nomor DO / NIM / Nama..." v-model="q" ref="searchInput" @keyup.enter.prevent="onSearchEnter" style="padding:8px;border-radius:6px;border:1px solid #ccc;flex:1;" />
+    <button class="reset-filter-btn" @click="resetSearch" title="Reset (Esc)">Reset</button>
+  </div>
+
+  <h3>Daftar Tracking DO</h3>
+
+  <!-- wrapper card-section agar sejajar dengan form -->
+  <div 
+    class="card-section"
+    style="background:#fff;padding:18px;border-radius:8px;
+           box-shadow:0 2px 8px rgba(0,0,0,0.04);margin-bottom:18px;">
+
+    <div class="table-wrap" style="overflow:auto;">
+      <table class="tracking-table">
+        <thead>
+          <tr>
+            <th>Nomor DO</th>
+            <th>NIM</th>
+            <th>Nama</th>
+            <th>Ekspedisi</th>
+            <th>Paket</th>
+            <th>Tanggal Kirim</th>
+            <th>Total</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in filteredList" :key="item.noDO">
+            <td>{{ item.noDO }}</td>
+            <td>{{ item.nim }}</td>
+            <td>{{ item.nama }}</td>
+            <td>{{ item.ekspedisi }}</td>
+            <td>{{ item.paket }}</td>
+            <td>{{ item.tanggalKirim }}</td>
+            <td>{{ formatRp(item.total) }}</td>
+            <td style="display:flex; gap:8px; justify-content:center;">
+              <button @click="openProgressModal(item)" class="edit" title="Update Progress"><i class="fa fa-truck"></i></button>
+              <button @click="editDO(item)" class="edit" title="Edit"><i class="fa fa-pencil"></i></button>
+              <button @click="deleteDO(item)" class="delete" title="Hapus"><i class="fa fa-trash-o"></i></button>
+            </td>
+          </tr>
+
+          <tr v-if="filteredList.length === 0">
+            <td colspan="8" class="empty">Tidak ada data</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  </div> <!-- end card-section -->
+
+  <!-- ========================= -->
+<!-- MODAL TIMELINE DO -->
+<!-- ========================= -->
+<div v-if="showTimelineModal" class="timeline-modal-overlay">
+  <div class="timeline-modal">
+    <h3>Timeline Pengiriman — {{ currentDO.noDO }}</h3>
+
+    <div class="timeline-list">
+      <div v-for="(p,idx) in currentDO.perjalanan" :key="idx" class="timeline-item">
+        <div class="t-time">{{ formatTanggalWaktu(p.waktu) }}</div>
+        <div class="t-ket">{{ p.keterangan }}</div>
+      </div>
+    </div>
+
+    <div class="timeline-input">
+      <input type="text" v-model="timelineInput" placeholder="Tambah progress (misal: Tiba di Hub Surabaya)" />
+      <button @click="submitTimeline" class="add-btn">Tambah</button>
+    </div>
+
+    <button class="modal-close-btn" @click="closeTimelineModal">Tutup</button>
+  </div>
+</div>
+
+
+</div>

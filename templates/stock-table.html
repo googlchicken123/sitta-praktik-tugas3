@@ -1,0 +1,92 @@
+<!-- templates/stock-table.html -->
+<div class="container stock-component">
+  <button class="btn small back-btn" @click="$root.setTab('dashboard')" style="margin-bottom: 12px;">
+  ← Kembali ke Dashboard
+</button>
+  
+  <h2>Informasi Stok Bahan Ajar</h2>
+
+  <div class="filter-container">
+    <div class="select-filter">
+      <h4>Filter</h4>
+
+      <select v-model="selectedUpbjj" aria-label="Pilih UPBJJ">
+        <option value="">Pilih UPBJJ</option>
+        <option v-for="(u, i) in upbjjList" :key="i">{{ u }}</option>
+      </select>
+
+      <select v-model="selectedKategori" :disabled="!selectedUpbjj" :style="selectKategoriStyle">
+        <option value="">Semua Kategori</option>
+        <option v-for="(k, i) in kategoriListFiltered" :key="i">{{ k }}</option>
+      </select>
+
+      <select v-model="sortBy">
+        <option value="">Sort</option>
+        <option value="judul">Judul</option>
+        <option value="qty">Jumlah</option>
+        <option value="harga">Harga</option>
+      </select>
+
+      <button @click="resetFilter" class="reset-filter-btn" title="Reset filter">
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <div class="checkbox-filter">
+      <label><input type="checkbox" v-model="isSafety"> Tampilkan stok menipis / kosong</label>
+    </div>
+
+    <div class="search-actions" style="margin-top:12px;">
+      <input type="text" v-model="q" placeholder="Cari judul atau kode..." @keyup.enter="focusSearch" />
+      <button @click="openAddModal" class="btn small add-btn">
+  <i class="fa fa-plus"></i> Tambah Bahan Ajar
+</button>
+
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table class="stock-table">
+      <thead>
+        <tr>
+          <th>Kode MK</th>
+          <th>Judul</th>
+          <th>Kategori</th>
+          <th>UPBJJ</th>
+          <th>Lokasi</th>
+          <th>Harga</th>
+          <th>Jumlah</th>
+          <th>Status</th>
+          <th>Catatan</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in filteredData" :key="item.kode">
+          <td>{{ item.kode }}</td>
+          <td>{{ item.judul }}</td>
+          <td>{{ item.kategori }}</td>
+          <td>{{ item.upbjj }}</td>
+          <td>{{ item.lokasiRak }}</td>
+          <td>{{ formatRp(item.harga) }}</td>
+          <td>{{ item.qty }}</td>
+          <td :class="statusClass(item)">{{ statusText(item) }}</td>
+          <td>
+            <div class="note" @mouseenter="showNote(item)" @mouseleave="hideNote()" v-html="shortNote(item)"></div>
+            <div v-if="hoverNote && hoverNote.kode === item.kode" class="note-tooltip" v-html="item.catatanHTML"></div>
+          </td>
+          <td class="action-cell">
+            <button @click="editItem(item)" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            <button @click="deleteItem(item)" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+          </td>
+        </tr>
+
+        <tr v-if="filteredData.length === 0">
+          <td colspan="10" class="empty">Tidak ada data</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal (simple form dalam SweetAlert2 but keep a minimal fallback kalau dibutuhkan) -->
+</div>

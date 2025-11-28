@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - SITTA UT</title>
+
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="app-header">
+  <div class="header-left">
+    <img src="assets/img/ut2.png" alt="UT Logo" class="header-logo">
+    <div class="header-title">
+      <div class="title">SITTA - Pemesanan Bahan Ajar</div>
+      <div id="greeting" class="subtitle"></div>
+    </div>
+  </div>
+
+  <div class="header-right">
+    <button id="logoutBtn" class="logout-btn">
+      <i class="fa fa-sign-out"></i> Keluar
+    </button>
+  </div>
+</header>
+
+  <div class="app-layout">
+    <!-- Sidebar dihapus karena navigasi dikelola melalui Dashboard Cards -->
+
+    <main class="main-content">
+      <div id="app">
+
+        <!-- DASHBOARD -->
+        <section v-if="tab==='dashboard'" class="container">
+          <div class="cards-grid">
+            <div class="card">
+              <h3>Informasi Bahan Ajar</h3>
+              <p>Lihat stok, tambah stok baru, dan kelola data bahan ajar.</p>
+              <button class="btn small" @click="setTab('stock')">Buka</button>
+            </div>
+
+            <div class="card">
+              <h3>Tracking Pengiriman</h3>
+              <p>Cari DO dan pantau status pengiriman yang sedang berjalan.</p>
+              <button class="btn small" @click="setTab('tracking')">Cari</button>
+            </div>
+
+            <div class="card">
+              <h3>Histori Transaksi</h3>
+              <p>Riwayat pemesanan dan pengiriman bahan ajar mahasiswa.</p>
+              <button class="btn small" @click="setTab('histori')">Lihat</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- STOCK -->
+        <section v-if="tab==='stock'" class="container">
+          <ba-stock-table></ba-stock-table>
+        </section>
+
+        <!-- TRACKING -->
+        <section v-if="tab==='tracking'" class="container">
+          <ba-do-tracking></ba-do-tracking>
+        </section>
+
+        <!-- HISTORI -->
+        <section v-if="tab==='histori'" class="container">
+          <ba-histori-transaksi></ba-histori-transaksi>
+        </section>
+
+        <!-- FOOTER COMPONENT -->
+        <app-footer></app-footer>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Vue -->
+  <script src="https://unpkg.com/vue@3.4.38/dist/vue.global.prod.js"></script>
+
+  <!-- SERVICES + COMPONENTS -->
+  <script src="js/services/api.js"></script>
+  <script src="js/components/stock-table.js"></script>
+  <script src="js/components/do-tracking.js"></script>
+  <script src="js/components/histori-transaksi.js"></script>
+
+  <!-- APP (load 1x saja) -->
+  <script src="js/app.js"></script>
+</body>
+</html>
+
