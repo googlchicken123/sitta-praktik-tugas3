@@ -22,7 +22,7 @@ const API = (function () {
       }
     }
 
-    const data = await loadJson("/data/dataMaster.json");
+    const data = await loadJson("./data/dataMaster.json");
     saveMaster(data);
     return data;
   }
@@ -36,7 +36,7 @@ const API = (function () {
   // ==============================================
 
   async function getUsers() {
-    return await loadJson("/data/users.json");
+    return await loadJson("./data/users.json");
   }
 
   async function getAll() {
