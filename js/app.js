@@ -7,9 +7,9 @@
   }
 
   try {
-    const tplStock = await fetchTemplate("/templates/stock-table.html");
-    const tplTracking = await fetchTemplate("/templates/do-tracking.html");
-    const tplHistori = await fetchTemplate("/templates/histori-transaksi.html");
+    const tplStock = await fetchTemplate("./templates/stock-table.html");
+    const tplTracking = await fetchTemplate("./templates/do-tracking.html");
+    const tplHistori = await fetchTemplate("./templates/histori-transaksi.html");
 
 
     const stockComp = window.createStockComponent(tplStock);
