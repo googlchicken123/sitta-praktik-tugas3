@@ -11,10 +11,15 @@ Tugas Praktik 3 ini merupakan kelanjutan dari tugas sebelumnya dan berfokus pada
 
 Pengembangan ini bertujuan untuk mendukung kebutuhan proses pemesanan dan distribusi bahan ajar di Universitas Terbuka melalui arsitektur aplikasi yang lebih modular, terstruktur, dan mudah dirawat.
 
-> **Catatan:** Untuk kebutuhan simulasi realtime aplikasi SITTA, seluruh struktur kode telah saya host melalui GitHub Pages.  
-> Silakan mengakses hasil running aplikasi pada link berikut: 
-> Username: admin@ut.ac.id, Password: admin123   
-> **https://googlchicken123.github.io/sitta-praktik-tugas3/**
+**Catatan:**  
+Untuk kebutuhan simulasi realtime aplikasi SITTA, seluruh struktur kode telah saya host melalui GitHub Pages.
+
+Silakan mengakses hasil running aplikasi pada link berikut:  
+**https://googlchicken123.github.io/sitta-praktik-tugas3/**
+
+**Akun demo:**  
+- **Username:** admin@ut.ac.id  
+- **Password:** admin123
 
 
 ---
