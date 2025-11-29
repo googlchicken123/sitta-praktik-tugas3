@@ -11,6 +11,10 @@ Tugas Praktik 3 ini merupakan kelanjutan dari tugas sebelumnya dan berfokus pada
 
 Pengembangan ini bertujuan untuk mendukung kebutuhan proses pemesanan dan distribusi bahan ajar di Universitas Terbuka melalui arsitektur aplikasi yang lebih modular, terstruktur, dan mudah dirawat.
 
+> **Catatan:** Untuk kebutuhan simulasi realtime aplikasi SITTA, seluruh struktur kode telah saya host melalui GitHub Pages.  
+> Silakan mengakses hasil running aplikasi pada link berikut:  
+> **https://googlchicken123.github.io/sitta-praktik-tugas3/**
+
 ---
 
 ### Phase 1 – Analisis Struktur HTML Lama
